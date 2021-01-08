@@ -75,17 +75,16 @@ async def on_message(message):
 @client.command()
 async def learn(ctx):
     await ctx.send("re-learning...")
-        trainer.train(
-            "chatterbot.corpus.english.botprofile",
-            "chatterbot.corpus.english.conversations",
-            "chatterbot.corpus.english.humor"
-        )
-        listtrainer.train(
-            convo
-        )
-        with open("convo.pkl", "wb") as fp:   #Pickling
-               pickle.dump(convo, fp)
-
-        await ctx.send("recalibrated AI")
+    trainer.train(
+        "chatterbot.corpus.english.botprofile",
+        "chatterbot.corpus.english.conversations",
+        "chatterbot.corpus.english.humor"
+    )
+    listtrainer.train(
+        convo
+    )
+    with open("convo.pkl", "wb") as fp:   #Pickling
+           pickle.dump(convo, fp)
+    await ctx.send("recalibrated AI")
         
 client.run('')
