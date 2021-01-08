@@ -71,9 +71,26 @@ async def on_message(message):
     elif pf.is_clean(message.content):
         convo.append(message.content)
 
+@commands.command()
+@commands.is_owner()
+async def learn(ctx):
+    print("re-learning...")
+    trainer.train(
+        "chatterbot.corpus.english.botprofile",
+        "chatterbot.corpus.english.conversations",
+        "chatterbot.corpus.english.humor"
+    )
+    listtrainer.train(
+        convo
+    )
+    with open("convo.pkl", "wb") as fp:  # Pickling
+        pickle.dump(convo, fp)
+    print("recalibrated AI")
+    await ctx.send("re-learned")
+
 
 @tasks.loop(minutes=500)
-async def learn():
+async def learn_auto():
     print("re-learning...")
     trainer.train(
         "chatterbot.corpus.english.botprofile",
