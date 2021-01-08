@@ -3,7 +3,7 @@ from chatterbot import ChatBot
 import discord
 import json
 import random
-from discord.ext import commands
+from discord.ext import commands, tasks
 import os
 import profanity_filter
 
@@ -72,9 +72,9 @@ async def on_message(message):
         convo.append(message.content)
 
 
-@client.command()
-async def learn(ctx):
-    await ctx.send("re-learning...")
+@tasks.loop(minutes=500)
+async def learn():
+    print("re-learning...")
     trainer.train(
         "chatterbot.corpus.english.botprofile",
         "chatterbot.corpus.english.conversations",
@@ -85,7 +85,7 @@ async def learn(ctx):
     )
     with open("convo.pkl", "wb") as fp:  # Pickling
         pickle.dump(convo, fp)
-    await ctx.send("recalibrated AI")
+    print("recalibrated AI")
 
 
 token = os.environ['TOKEN']
