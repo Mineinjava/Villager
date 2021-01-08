@@ -51,6 +51,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    await client.process_commands(message)
     if '%' in message.content:  # change to bot prefix
         return
 
@@ -72,7 +73,7 @@ async def on_message(message):
         convo.append(message.content)
 
 @client.command()
-@client.is_owner()
+@commands.check(commands.is_owner())
 async def learn(ctx):
     print("re-learning...")
     trainer.train(
