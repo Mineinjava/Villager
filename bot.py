@@ -5,11 +5,13 @@ import json
 import random
 from discord.ext import commands
 import os
+import profanity_filter
+
+pf = profanity_filter.ProfanityFilter()
 
 client = commands.Bot(command_prefix='%')
-# note: I never use the commands 
 
-chatbot = ChatBot('Warden')
+chatbot = ChatBot('Villager')
 
 # train ML
 from chatterbot.trainers import ChatterBotCorpusTrainer
@@ -66,7 +68,7 @@ async def on_message(message):
 
     if message.author.bot:
         return
-    else:
+    elif pf.is_clean(message.content):
         convo.append(message.content)
 
 
