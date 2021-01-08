@@ -71,8 +71,8 @@ async def on_message(message):
     elif pf.is_clean(message.content):
         convo.append(message.content)
 
-@commands.command()
-@commands.is_owner()
+@client.command()
+@client.is_owner()
 async def learn(ctx):
     print("re-learning...")
     trainer.train(
