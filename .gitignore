@@ -7,3 +7,4 @@ db.sqlite3-wal
 db.sqlite3-shm
 convo.pkl
 .DS_Store
+channel_blacklist.pkl
